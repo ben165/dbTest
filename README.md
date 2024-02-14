@@ -1,5 +1,9 @@
 ### Problem in Script DB01_08
 
+
+**Update**: siehe unten, Problem wurde geloest.
+
+
 S. 13
 
 Vor und zurueck Blaettern funktioniert nicht. Beispiel:
@@ -110,4 +114,21 @@ Ich habe gerade das Problem, dass ich in einer grossen Buecherdatenbank jeweils 
 Beste Gruesse B.U.
 
 
+
+### Update
+
+Korrekte, funktionierende SQL Abfrage
+
+```sql
+SELECT i.*
+FROM
+(
+	SELECT
+	LAG( id ) OVER ( ORDER BY id ) AS prev_id,
+	id, title,
+	LEAD( id ) OVER ( ORDER BY id ) AS next_id
+	FROM img
+) i
+WHERE i.id = 4
+```
 
